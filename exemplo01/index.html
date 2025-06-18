@@ -1,17 +1,59 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geolocation API</title>
-    <script src="app.js"></script>
+  <meta charset="UTF-8">
+  <title>Geolocalização - Atividade</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #localizacao {
+      background-color: #e0f7fa;
+      padding: 15px;
+      border: 1px solid #00acc1;
+      border-radius: 5px;
+      color: #004d40;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #00acc1;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #00838f;
+    }
+  </style>
 </head>
-
 <body>
-    <h1>Minha Localização</h1>
-    <button onclick="obterLocalizacao()">Obter Localização</button>
-    <p id="localizacao"></p>
-</body>
+  <h1>Atividade - Geolocalização</h1>
+  <button onclick="mostrarLocalizacao()">Mostrar minha localização</button>
+  <p id="localizacao"></p>
 
+  <script>
+    function mostrarLocalizacao() {
+      const local = document.getElementById("localizacao");
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function(posicao) {
+            const latitude = posicao.coords.latitude;
+            const longitude = posicao.coords.longitude;
+            local.innerHTML = `Latitude: ${latitude} <br> Longitude: ${longitude}`;
+          },
+          function(erro) {
+            local.innerHTML = "Não foi possível obter a localização.";
+          }
+        );
+      } else {
+        local.innerHTML = "Geolocalização não é suportada pelo navegador.";
+      }
+    }
+  </script>
+</body>
 </html>
